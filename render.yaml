@@ -7,13 +7,15 @@ services:
     startCommand: java -jar target/*.jar
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://your-render-db-host:5432/your-db-name
+        value: jdbc:postgresql://dpg-d6iirp7gi27c738ipm90-a/hrms_db_gyb3
       - key: SPRING_DATASOURCE_USERNAME
-        value: your_db_username
+        value: hrms_db_gyb3_user
       - key: SPRING_DATASOURCE_PASSWORD
-        value: your_db_password
+        value: 0lbvjubPXGaG7fHltQbzfjv6jEbqYQEY
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
+      - key: SERVER_PORT
+        value: 8080
 
   - type: web
     name: hrms-frontend
@@ -24,24 +26,3 @@ services:
     envVars:
       - key: REACT_APP_API_URL
         value: https://hrms-backend.onrender.com
-```
-
----
-
-### Step 3: Get your PostgreSQL values from Render
-
-1. Go to Render Dashboard → your **PostgreSQL** service
-2. Click **"Connect"** tab
-3. Copy these values:
-   - **Internal Database URL** → use for `SPRING_DATASOURCE_URL`
-   - But convert it: `postgres://user:pass@host/db` → `jdbc:postgresql://host/db`
-   - **Username** → `SPRING_DATASOURCE_USERNAME`
-   - **Password** → `SPRING_DATASOURCE_PASSWORD`
-
-**Example conversion:**
-```
-# Render gives you:
-postgres://hrms_user:abc123@dpg-xxxx.oregon-postgres.render.com/hrms_db
-
-# You write in render.yaml:
-jdbc:postgresql://dpg-xxxx.oregon-postgres.render.com/hrms_db
